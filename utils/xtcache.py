@@ -1,6 +1,6 @@
 # coding:utf-8
 import memcache
-cache = memcache.Client(['127.0.0.1:11211'], debug=True)
+cache = memcache.Client([''], debug=True) # 设置memcache的ip地址和端口号
 
 
 # 设置缓存的函数，默认过期时间1分钟
