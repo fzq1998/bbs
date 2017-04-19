@@ -1,0 +1,73 @@
+{% extends 'cms/cms_base.html' %}
+
+{% block title %}
+    前台用户管理页
+{% endblock %}
+
+{% block head %}
+    <script type="text/javascript" src="{{ static('common/js/xtparam.js') }}"></script>
+    <script type="text/javascript" src="{{ static('cms/js/cms_frontusers.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <div class="top-group">
+        <label>排序:</label>
+        <select class="top-select" id="sort-select">
+            <option value="1"  {% if current_sort == '1' %}selected{% endif %} >按加入时间排序</option>
+            <option value="2"  {% if current_sort == '2' %}selected{% endif %}>按帖子数排序</option>
+            <option value="3"  {% if current_sort == '3' %}selected{% endif %}>按评论数排序</option>
+            <option value="4"  {% if current_sort == '4' %}selected{% endif %}>按积分排序</option>
+        </select>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <th>用户名</th>
+            <th>电话</th>
+            <th>邮箱</th>
+            <th>加入时间</th>
+            <th>发表帖子数</th>
+            <th>评论数</th>
+            <th>积分</th>
+            <th>状态</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+            {% for frontuser in frontusers %}
+                <tr>
+                    <td>
+                        <a href="{{ url_for('account.profile',user_id=frontuser.id) }}">{{ frontuser.username }}</a>
+                    </td>
+                    <td>{{ frontuser.telephone }}</td>
+                    <td>{{ frontuser.email or '未填写' }}</td>
+                    <td>{{ frontuser.join_time }}</td>
+                    <td>{{ frontuser.posts | length or '未发表过帖子' }}</td>
+                    <td>{{ frontuser.comments | length or '未发表过评论'}}</td>
+                    <td>{{ frontuser.points}}</td>
+                    <td>
+                        {% if frontuser.is_active %}
+                            <button class="btn btn-warning btn-xs">可用</button>
+                        {% else %}
+                            <button class="btn btn-danger btn-xs">禁用</button>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a class="btn btn-primary btn-xs" href="{{ url_for('cms.edit_front_user',id=frontuser.id) }}">
+                            编辑
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+{% endblock %}
+
+
+
+
+
+

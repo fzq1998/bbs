@@ -1,0 +1,55 @@
+{% extends 'cms/cms_base.html' %}
+
+{% block title %}
+    个人信息
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block head %}
+    <style type="text/css">
+        .table{
+            width:500px;
+        }
+    </style>
+{% endblock %}
+
+
+
+{% block main_content %}
+    <table class="table table-borered form-min">
+        <tr>
+            <td>用户名</td>
+            <td>{{ cms_user.username }}</td>
+        </tr>
+         <tr>
+            <td>邮箱</td>
+            <td>{{ cms_user.email }}</td>
+        </tr>
+         <tr>
+            <td>角色</td>
+            <td>
+                {% for role in cms_user.roles %}
+                    {{ role.name }}
+                    {% if not loop.last %},{% endif %}
+                {% endfor %}
+
+            </td>
+        </tr>
+         <tr>
+            <td>权限</td>
+            <td>
+                {% for permission in cms_user.permissions %}
+                    {{ permission.values()[0][1] }}
+                    {% if not loop.last %},{% endif %}
+                {% endfor %}
+            </td>
+        </tr>
+         <tr>
+            <td>加入时间</td>
+            <td>{{ cms_user.join_time }}</td>
+        </tr>
+    </table>
+{% endblock %}

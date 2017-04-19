@@ -1,0 +1,59 @@
+{% extends 'front/front_profile_base.html' %}
+
+{% block profile_head %}
+    <meta name="Author" content="Char1998">
+    <meta name="Keywords" content="用户详情页,用户的帖子,char论坛">
+    <meta name="Description" content="用户所有的帖子">
+    <link rel="stylesheet" href="{{ static('front/css/front_profile_posts.css') }}">
+    <script type="text/javascript" src="{{ static('front/js/front_profile_posts.js') }}"> </script>
+{% endblock %}
+
+{% block posts %}
+    active
+{% endblock %}
+
+{% block right_content %}
+    <div class="theme-nav">
+        <a href="#" id="btn-post" class="theme-nav-list current" >帖子</a>
+        <a href="#" id="btn-comment" class="theme-nav-list">回复</a>
+    </div>
+    <div class="post-list">
+        <table class="table">
+            <thead>
+                <th>标题：</th>
+                <th>板块</th>
+                <th>回复/查看</th>
+            </thead>
+            <tbody>
+                {% for post in current_user.posts %}
+                    <tr>
+                        <td><a href="{{ url_for('post.post_detail',post_id=post.id) }}">{{ post.title }}</a></td>
+                        <td>{{ post.board.name }}</td>
+                        <td>{{ post.comments|length }}/{{ post.read_count | default(0) }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="comment-list" style="display: none;">
+        <table class="table">
+            <thead>
+                <th>评论</th>
+                <th>板块</th>
+            </thead>
+            <tbody>
+                {% for comment in current_user.comments %}
+                    <tr>
+                        <td>
+                            <p>
+                                帖子：<a href="{{ url_for('post.post_detail',post_id=comment.post.id) }}">{{ comment.post.title }}</a>
+                            </p>
+                            <p class="comment-p">{{ comment.content|safe }}</p>
+                        </td>
+                        <td>{{ comment.post.board.name }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

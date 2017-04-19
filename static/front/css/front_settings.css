@@ -1,0 +1,27 @@
+.container{
+    background: #fff;
+    width: 728px;
+    margin: 0 auto;
+    border: 1px solid #e6e6e6;
+}
+.container-inner{
+    width: 668px;
+    margin: 0 auto;
+}
+.container-inner h2{
+    margin: 10px 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e6e6e6;
+}
+.container-inner .form-group{
+    width: 288px;
+}
+.form-group textarea{
+    resize: none;
+    height: 100px;
+}
+.avatar-img{
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+}

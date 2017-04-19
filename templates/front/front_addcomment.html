@@ -1,0 +1,31 @@
+{% extends 'front/front_base.html' %}
+
+{% block title %}
+    评论页
+{% endblock %}
+
+{% block head %}
+  	<meta name="Author" content="Char1998">
+    <meta name="Keywords" content="添加评论,char论坛,论坛">
+    <meta name="Description" content="这是char论坛的添加评论页，用户可以贴加评论">
+    <link rel="stylesheet" href="{{ static('front/css/front_addcomment.css') }}">
+    <script type="text/javascript" src="{{ static('front/js/front_addcomment.js') }}"></script>
+{% endblock %}
+
+{% block container %}
+    <div class="container-inner">
+        <div class="post-title">
+            <a href="{{ url_for('post.post_detail',post_id=post.id) }}">{{ post.title }}</a>
+        </div>
+        {% if origin_comment %}
+            <div class="origin-comment-group" data-comment-id="{{ origin_comment.id }}">
+                回复：{{ origin_comment.author.username }}
+                <p>“ {{ origin_comment.content | safe }} ”</p>
+            </div>
+        {% endif %}
+        {% include 'common/editor_base.html' %}
+        <div class="bottom-group">
+            <button class="btn btn-warning" data-post-id="{{ post.id }}" id="btn-addComment">提交评论</button>
+        </div>
+    </div>
+{% endblock %}

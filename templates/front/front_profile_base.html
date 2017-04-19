@@ -1,0 +1,37 @@
+{% extends 'front/front_base.html' %}
+
+{% block title %}{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ static('front/css/front_profile_base.css') }}">
+    {% block profile_head %}{% endblock %}
+{% endblock %}
+
+{% block container %}
+    <div class="top-container">
+        <img src="{{ current_user.avatar or static('front/images/logo.jpg') }}" alt="{{ current_user.username }}" class="avatar-img">
+        <div class="info">
+            <p class="username">{{ current_user.username }}</p>
+            <div>
+                <p>积分：{{ current_user.points }}</p>
+                <p>个性签名：{{ current_user.signature or '这个家伙很懒，没有留下什么~' }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="bottom-container">
+        <div class="left-container">
+            <div class="list-group">
+                <span class="list-group-item list-title">个人资料</span>
+                <a href="{{ url_for('account.profile',user_id=current_user.id) }}" class="list-group-item {% block profile %}{% endblock %}">
+                    资料
+                </a>
+                <a href="{{ url_for('account.profile_posts',user_id=current_user.id) }}" class="list-group-item {% block posts %}{% endblock %}">帖子</a>
+            </div>
+        </div>
+        <div class="right-container">
+            <div class="container-inner">
+                {% block right_content %}{% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends 'front/front_signup_base.html' %}
+
+{% block title %}
+    登陆页 - char论坛
+{% endblock %}
+
+{% block head %}
+    <meta name="Author" content="Char1998">
+    <meta name="Keywords" content="登录页,论坛,char论坛">
+    <meta name="Description" content="这是char论坛的登录页">
+     <script type="text/javascript"  src="{{ static('common/js/xtparam.js') }}"></script>
+     <script type="text/javascript" src="{{ static('front/js/front_graph_captcha.js')}}"></script>
+{% endblock %}
+
+{% block container %}
+    <div class="form-login">
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-3 control-label" >用户名：</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="text" placeholder="请您输入您的手机号" name="telephone" value="{{ telephone }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" >密码：</label>
+                <div class="col-sm-9">
+                    <input class="form-control" type="password" placeholder="请您输入密码" name="password">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label" >验证码：</label>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="请您输入验证码" name="graph_captcha">
+                        <span class="input-group-addon graph-captcha-addon" id="btn-graph-captcha">
+                            <img src="{{ url_for('account.graph_captcha') }}"  alt="">
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="checkbox col-sm-offset-3">
+                    <label>
+                        <input type="checkbox" name="remember"> 记住我
+                    </label>
+                    <div class="pull-right forget-pwd">
+                        <a href="#">忘记密码</a>
+                    </div>
+                </div>
+            </div>
+
+            {% if message %}
+                <p class="text-center text-danger">{{ message }}</p>
+            {% endif %}
+
+            <div class="form-group">
+                <div class="col-sm-offset-3">
+                    <button class="btn btn-warning btn-block">立即登录</button>
+                </div>
+            </div>
+             <div class="form-group">
+                <div class="col-sm-offset-3">
+                    <a class="btn btn-warning btn-block regist" href="{{ url_for('account.regist') }}">免费注册</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block signup %}
+     <p>还没有账号？<br />
+        赶快免费注册一个吧！！</p>
+    <a class="btn btn-warning btn-block" href="{{ url_for('account.regist') }}">立即注册</a>
+{% endblock %}

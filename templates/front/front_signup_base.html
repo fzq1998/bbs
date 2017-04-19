@@ -1,0 +1,28 @@
+{% from 'common/macros.html' import static %}
+<!doctype html>
+<html>
+	<head>
+		<!--声明当前页面的编码集：charset=gbk,gb2312(中文编码),utf-8国际编码-->
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+		<title>{% block title %}{% endblock %} - bbs论坛</title>
+		{% include 'common/head_base.html' %}
+        <link rel="stylesheet" href="{{ static('front/css/front_signup_base.css') }}"/>
+        {% block head %}{% endblock %}
+   </head>
+<body>
+	<div class="logo-img">
+        <a href="{{ url_for('post.index') }}">
+              <img class="img-responsive" src="{{ static('front/images/logo.png') }}">
+        </a>
+    </div>
+	<div class="container">
+        <form action="" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            {% block container %}{% endblock %}
+        </form>
+         <div class="signup">{% block signup %}{% endblock %}</div>
+    </div>
+</body>
+</html>
+
+

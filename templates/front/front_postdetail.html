@@ -1,0 +1,111 @@
+
+{% extends 'front/front_base.html' %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block head %}
+    <meta name="Author" content="Char_1998">
+    <meta name="Keywords" content="帖子详情,帖子,char,论坛">
+    <meta name="Description" content="这是char论坛的帖子详情页">
+    <link rel="stylesheet" href="{{ static('front/css/front_postdetail.css') }}">
+    <script type="text/javascript" src="{{ static('front/js/front_postdetail.js') }}"></script>
+
+{% endblock %}
+
+{% block body %}
+    <div class="container_wrap">
+        <div class="left-container">
+            <div class="post-container">
+                <div class="post-container-inner">
+                    <div class="post-top">
+                        <h2>{{ post.title }}</h2>
+                        <p class="post-info">
+                            <span>发表时间：{{ post.create_time }}</span>
+                            <span>作者：{{ post.author.username }}</span>
+                            <span>所属板块：{{ post.board.name|default('无板块') }}</span>
+                            <span class="comment-count">评论数：{{ post.comments | length }}</span>
+                            <span class="read-count">阅读数：{{ post.read_count|default(0) }}</span>
+                        </p>
+                    </div>
+                    <div class="post-content">
+                        {{ post.content|safe }}
+                    </div>
+                    <div class="star-group">
+                        {% if front_user and front_user.id in star_author_ids %}
+                            <button class="btn btn-default btn-xs" id="btn-star" data-post-id="{{ post.id }}" data-is-star="1" data-is-login="1">已赞</button>
+                         {% else %}
+                            <button class="btn btn-primary btn-xs" id="btn-star" data-post-id="{{ post.id }}" data-is-star="0" data-is-login="{% if front_user %}1{% else %}0{% endif %}">点赞</button>
+                        {% endif %}
+                        {% for star in post.stars %}
+                            <a href="{{ url_for('account.profile',user_id=star.author.id) }}">
+                                <img src="{{  star.author.avatar or static('common/images/logo.jpg') }}" alt="{{ star.author.username }}">
+                            </a>
+                        {% endfor %}
+                        
+                    </div>
+                </div>
+                <div class="comment-btn-group">
+                    <a href="{{ url_for('post.post_addcomment',post_id=post.id) }}" class="btn btn-primary">发表评论</a>
+                </div>
+            </div>
+            <div class="comment-list-group">
+                <div class="comment-list-group-inner">
+                    <div class="comment-title">
+                        <p>评论列表</p>
+                    </div>
+                    <ul class="comment-list">
+                        {% for comment in post.comments %}
+                            <li>
+                                <div class="comment-img">
+                                    <a href="{{ url_for('account.profile',user_id=comment.author.id) }}"><img class="user-head" src="{{ comment.author.avatar or static(filename='common/images/logo.jpg') }}" alt="{{ comment.author.username }}"></a>
+                                </div>
+                                <div class="comment-content">
+                                    <p class="author-info">
+                                        <span>{{ comment.author.username }}</span>
+                                        <label>评论于</label>
+                                        <span>{{ comment.create_time }}</span>
+                                    </p>
+                                    {% if comment.origin_comment %}
+                                        <div class="origin-comment-group">
+                                            <blockquote>
+                                                {{ comment.origin_comment.author.username}} 发表于 {{ comment.origin_comment.create_time }}
+                                                <p>{{ comment.origin_comment.content|safe }}</p>
+                                            </blockquote>
+                                        </div>
+                                    {% endif %}
+                                    <p class="comment-txt">{{ comment.content | safe }}</p>
+                                    <div class="comment-btn">
+                                        <a href="{{ url_for('post.post_addcomment',post_id=post.id,comment_id=comment.id) }}" class="reply-btn">回复</a>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="right-container">
+            <div class="author-group">
+                <div class="avatar-group">
+                    <a href="{{ url_for('account.profile',user_id=post.author.id) }}"><img src="{{ post.author.avatar or url_for('static',filename='common/images/logo.jpg') }}" alt="{{ post.author.username }}" class="avatar-img"></a>
+                </div>
+                <p class="username">{{ post.author.username }}</p>
+                <p class="txt">{{ post.author.points }}积分</p>
+                <div class="btn-box">
+                    {% if front_user %}
+                         {% if front_user.id == post.author.id %}
+                            <a href="{{ url_for('account.profile',user_id=post.author.id) }}" class="btn btn-warning">我的主页</a>
+                        {% else %}
+                            <a href="{{ url_for('account.profile',user_id=post.author.id) }}" class="btn btn-warning">Ta的主页</a>
+                        {% endif %}
+                     {% else %}
+                         <a href="{{ url_for('account.profile',user_id=post.author.id) }}" class="btn btn-warning">Ta的主页</a>
+                    {% endif %}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

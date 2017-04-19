@@ -1,0 +1,64 @@
+*{margin:0;padding:0;}
+body{
+    background: #f1dfdf;
+}
+.logo-img{
+    width: 356px;
+    height: 200px;
+    background: url('/static/front/images/logo.png');
+    margin: 0 auto;
+    cursor: pointer;
+}
+.container{
+    width: 68%;
+    margin: 10px auto;
+    background: #fff;
+    border-radius: 3px;
+    border: 1px solid #c4c4c4;
+}
+
+.form-regist{
+    float: left;
+    margin-top: 15px;
+    width: 430px;
+}
+.form-login{
+    float: left;
+    margin-top: 70px;
+    width: 430px;
+}
+.forget-pwd{
+    cursor: pointer;
+}
+.forget-pwd a{
+    color: #0f0f0f;
+}
+
+.signup{
+    float: right;
+    min-height: 388px;
+    padding: 120px 40px 0;
+    background: url('/static/front/images/sep.png') no-repeat 0 50%;
+
+}
+.signup p{
+    font-size: 17px;
+    font-style: italic;
+    line-height: 30px;
+    padding-bottom: 30px;
+}
+
+.graph-captcha-addon{
+    padding: 0;
+    cursor: pointer;
+}
+
+.regist,.login{
+    display: none;
+}
+
+@media screen and (max-width: 1155px){
+    .container{margin: 0 auto;}
+    .signup{display: none;}
+    .regist,.login{display: block;}
+}

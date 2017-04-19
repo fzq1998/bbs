@@ -1,0 +1,21 @@
+  <link rel="stylesheet" href="{{ url_for('static',filename='common/editor/css/wangEditor.min.css') }}">
+<script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
+<script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
+<script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
+<script src="{{ url_for('static',filename='common/js/xtqiniu.js') }}"></script>
+<script src="{{ url_for('static',filename='common/js/editor.js') }}"></script>
+
+<div class="form-group">
+    <textarea  id="editor"></textarea>
+</div>
+<script src="{{ url_for('static',filename='common/editor/js/wangEditor.min.js') }}"></script>
+<div class="form-group">
+    <div class="progress" id="progress-box" style="display: none;">
+        <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="0" style="min-width: 2em; width: 0%;">
+            0 %
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <button class="btn btn-info" id="btn-upload" data-loading-text="正在上传..." >上传图片或视频</button>
+</div>

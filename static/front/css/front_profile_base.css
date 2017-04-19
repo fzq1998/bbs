@@ -1,0 +1,63 @@
+.container{
+    width: 990px;
+    margin: 0 auto;
+}
+.top-container{
+    width: 600px;
+    margin: 0 auto;
+    overflow: hidden;
+}
+.avatar-img{
+    float: left;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 1px solid #c4cacf;
+    padding: 9px;
+}
+.info{
+    float: left;
+    margin-left: 50px;
+    line-height: 32px;
+}
+.info .username{
+    font-size: 24px;
+    color: #424854;
+    font-weight: bold;
+    margin-top: 10px;
+}
+.info .points{
+    text-align: center;
+}
+
+.bottom-container{
+    margin-top: 20px;
+    overflow: hidden;
+}
+.left-container{
+    width: 250px;
+    float: left;
+}
+.list-title{
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+}
+
+.right-container{
+    width: 730px;
+    background: #ffffff;
+    border: 1px solid #e6e6e6;
+    float: right;
+}
+.container-inner{
+    padding: 20px;
+}
+.container-inner .info-title{
+    font-weight: bold;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e6e6e6;
+}
+.info-list li{
+    padding: 10px 0;
+}

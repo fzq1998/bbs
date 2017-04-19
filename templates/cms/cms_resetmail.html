@@ -1,0 +1,28 @@
+{% extends 'cms/cms_base.html' %}
+
+{% block title %}
+    重置邮箱
+{% endblock %}
+
+{% block head %}
+    <script src="{{ static('cms/js/cms_resetmail.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <form class="form-min" action="" method="post">
+        <div class="form-group">
+            <div class="input-group">
+                <input type="email" class="form-control" name="email" placeholder="输入新邮箱"/>
+                <span class="input-group-addon" id="btn-captcha" style="cursor: pointer">获取验证码</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="captcha" placeholder="输入验证码"/>
+        </div>
+        <button class="btn btn-primary" id="btn-submit">立即重置</button>
+    </form>
+{% endblock %}

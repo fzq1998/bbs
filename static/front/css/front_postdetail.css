@@ -1,0 +1,234 @@
+.container_wrap{
+    margin: 10px auto;
+    width: 990px;
+}
+
+.left-container{
+    width: 74%;
+    float: left;
+}
+
+.post-container{
+    margin: 0 0 10px 0;
+    background: #fff;
+    padding-bottom: 35px;
+    border: 1px solid #e6e6e6;
+}
+
+.post-container-inner{
+    width: 655px;
+    margin: 26px auto;
+}
+.post-top h2{
+    margin-bottom: 30px;
+}
+.post-info{
+    font-size: 12px;
+    color: #8c8c8c;
+    line-height: 14px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e6e6e6;
+}
+.post-info span{
+    margin-right: 10px;
+}
+
+.post-info .read-count{
+    float: right;
+}
+
+.post-info .comment-count{
+    float: right;
+}
+
+.highlight{
+    color: #ff4c4c;
+}
+
+.post-content{
+    margin-top: 40px;
+    font-size: 16px;
+    word-wrap: break-word;
+}
+.comment-list-group{
+    background: #fff;
+    margin-top: 10px;
+    width: 728px;
+    border: 1px solid #e6e6e6;
+    padding: 10px 0 20px;
+}
+
+.comment-list-group-inner{
+    width: 660px;
+    margin: 20px auto 0;
+}
+
+.comment-title{
+    color: #ff7519;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.comment-list > li{
+    margin-top: 30px;
+    border-bottom: 1px solid #e6e6e6;
+    overflow: hidden;
+}
+
+.comment-list > li .comment-img{
+    float: left;
+}
+
+.comment-list > li .user-head{
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.comment-list > li .comment-content{
+    float: right;
+    width: 596px;
+}
+
+.comment-list > li .comment-content .author-info{
+    line-height:20px;
+    font-size:12px;
+    color: #8c8c8c;
+}
+.comment-list > li .comment-content .comment-txt{
+    word-wrap: break-word;
+    overflow: hidden;
+    font-size: 16px;
+    margin-top: 5px;
+}
+.comment-list > li .comment-content .comment-btn{
+    height: 35px;
+    color: #8c8c8c;
+}
+.comment-btn .reply-btn{
+    float: right;
+    color: #8c8c8c;
+}
+
+.comment-area{
+    margin-top: 10px;
+    padding: 30px 0 20px;
+    width: 728px;
+    background: #ffffff;
+    border: 1px solid #e6e6e6;
+}
+
+.comment-area .comment-area-inner{
+    width: 650px;
+    margin: 0 auto;
+}
+
+#comment-editor{
+    background: #f4f6f7;
+    border: 1px solid #e6e6e6;
+    width: 100%;
+    height:136px;
+    color: #9b9b9b;
+    outline: none;
+    display: block;
+    resize: none;
+    padding: 10px;
+}
+
+.comment-area-inner .comment-btn-group{
+    margin-top: 10px;
+    text-align: right;
+}
+
+.comment-btn-group{
+    text-align: right;
+    width: 650px;
+    overflow: hidden;
+    margin: 10px auto 0;
+    padding-top: 10px;
+    border-top: 1px solid #e6e6e6;
+}
+
+.right-container{
+    width: 24%;
+    float: right;
+}
+
+.right-container .author-group{
+    border:1px solid #e6e6e6;
+    background: #ffffff;
+    padding: 20px;
+}
+
+.origin-comment-group blockquote{
+    margin: 10px 0;
+    padding: 20px;
+    border: 1px solid #f3f3f3;
+    line-height: 20px;
+    background: #fafafa;
+    font-size: 14px;
+}
+.avatar-group{
+    text-align: center;
+}
+.avatar-group .avatar-img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border:1px solid #e6e6e6;
+    padding: 5px;
+}
+.author-group .username{
+    text-align: center;
+    font-size: 18px;
+    cursor: default;
+}
+.author-group .txt{
+    text-align: center;
+    font-size: 12px;
+    padding-top: 5px;
+    color: #8c8c8c;
+    cursor: default;
+}
+.author-group .btn-box{
+    margin-top: 10px;
+    text-align: center;
+}
+.list-group{
+    margin-top: 10px;
+}
+.star-group{
+    margin-top: 20px;
+    overflow: hidden;
+}
+.star-group button{
+    float: left;
+}
+.star-group a{
+    float: left;
+    margin-left: 10px;
+}
+.star-group a img{
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+}
+
+/*响应式*/
+@media screen and (max-width: 1100px){
+    .container_wrap{
+        width: 920px;
+    }
+}
+@media screen and (max-width: 1024px){
+    .container_wrap{
+        width: 910px;
+    }
+}
+@media screen and (max-width: 980px){
+    .container_wrap{
+        width: 888px;
+    }
+}

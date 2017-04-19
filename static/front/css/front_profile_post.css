@@ -1,0 +1,15 @@
+
+.theme-nav-list{
+    color: #333;
+    display: inline-block;
+    line-height: 30px;
+    padding: 0 10px;
+}
+
+.theme-nav-list.current{
+    background: #f3f3f3;
+}
+
+.comment-p{
+    margin-top: 10px;
+}

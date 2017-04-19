@@ -1,0 +1,63 @@
+{% extends 'front/front_profile_base.html' %}
+
+
+{% block profile %}
+    active
+{% endblock %}
+
+{% block right_content %}
+    <p class="info-title">个人资料</p>
+    <ul class="info-list">
+        <li>用户名：{{ current_user.username }}</li>
+        <li>
+            邮箱：
+            {% if current_user.id == front_user.id %}
+                {{ current_user.email or '未填写' }}
+            {% else %}
+                [隐藏]
+            {% endif %}
+        </li>
+        <li>
+            QQ：
+            {% if current_user.id == front_user.id %}
+                {{ current_user.qq or '未填写' }}
+            {% else %}
+                [隐藏]
+            {% endif %}
+        </li>
+        <li>真实姓名：
+            {% if current_user.id == front_user.id %}
+                {{ current_user.realname or '未填写' }}
+            {% else %}
+                [隐藏]
+            {% endif %}
+        </li>
+        <li>性别：
+            {% if current_user.gender == 1 %}男
+            {% elif current_user.gender == 2 %}女
+            {% elif current_user.gender == 3 %}保密
+            {% else %}未知
+            {% endif %}
+        </li>
+        <li>个性签名：{{ current_user.signature or '这个家伙很懒，没有留下什么~' }}</li>
+        <li>
+            论坛积分：{{ current_user.points }}
+        </li>
+    </ul>
+    <br>
+    <p class="info-title">活跃概括</p>
+    <ul class="info-list">
+        <li>
+            发表帖子数：{{ current_user.posts|length }}
+        </li>
+        <li>
+            评论数量：{{ current_user.comments | length }}
+        </li>
+        <li>
+            上次登录时间：{{ current_user.last_login_time }}
+        </li>
+        <li>
+            加入论坛时间：{{ current_user.join_time }}
+        </li>
+    </ul>
+{% endblock %}

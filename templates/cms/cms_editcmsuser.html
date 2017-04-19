@@ -1,0 +1,48 @@
+{% extends 'cms/cms_base.html' %}
+
+{% block title %}
+    编辑用户
+{% endblock %}
+
+{% block head %}
+    <script src="{{ static('cms/js/cms_editcmsuser.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+
+{% block main_content %}
+    <form action="" method="post" class="form-min">
+        <div class="form-group">
+                <span>用户名:</span>
+                <input type="text" class="form-control" value="{{ user.username }}" readonly="readonly"/>
+        </div>
+        <div class="form-group">
+                <span>邮箱:</span>
+                <input type="text" class="form-control" value="{{ user.email }}" readonly="readonly" />
+        </div>
+        <div class="checkbox">
+            {% for role in roles %}
+                <label>
+                    {% if role.id in current_roles %}
+                        <input type="checkbox" value="{{ role.id }}" checked="checked" >{{ role.name }}
+                    {% else %}
+                        <input type="checkbox" value="{{ role.id }}">{{ role.name }}
+                    {% endif %}
+                </label>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            {% if user.is_active %}
+                <button class="btn btn-danger" id="btn-black-list" data-user-id="{{ user.id }}"  data-is-active="1">拉黑</button>
+            {% else %}
+                <button class="btn btn-warning" id="btn-black-list" data-user-id="{{ user.id }}" data-is-active="0">取消拉黑</button>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" id="btn-submit" data-user-id="{{ user.id }}">立即修改</button>
+        </div>
+    </form>
+{% endblock %}

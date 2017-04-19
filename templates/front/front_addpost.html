@@ -1,0 +1,48 @@
+{% extends 'front/front_base.html' %}
+
+{% block title %}
+    发表帖子页
+{% endblock %}
+
+{% block head %}
+    <meta name="Author" content="Char1998">
+    <meta name="Keywords" content="发布帖子,char论坛,帖子">
+    <meta name="Description" content="这是论坛的发布帖子页">
+    <link rel="stylesheet" href="{{ static('front/css/front_addpost.css') }}">
+    <script type="text/javascript"  src="{{ static('common/js/xtparam.js') }}"></script>
+    <script type="text/javascript" src="{{ static('front/js/front_graph_captcha.js')}}"></script>
+    <script src="{{ static('front/js/front_addpost.js') }}"></script>
+{% endblock %}
+
+{% block container %}
+    <form action="" method="post">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">标题</span>
+                <input class="form-control" type="text" name="title"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">板块</span>
+                <select class="form-control sort-select">
+                    {% for board in boards %}
+                        <option value="{{ board.id }}">{{ board.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        {% include 'common/editor_base.html' %}
+        <div class="form-group graph-captcha">
+            <div class="input-group">
+                <input type="text" class="form-control" name="graph_captcha" placeholder="请您输入图形验证码">
+                <span class="input-group-addon captcha-addon" id="btn-graph-captcha">
+                    <img src="{{ url_for('account.graph_captcha') }}"  alt="">
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-warning" id="btn-send-post">发布帖子</button>
+        </div>
+    </form>
+{% endblock %}

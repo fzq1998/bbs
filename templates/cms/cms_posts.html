@@ -1,0 +1,89 @@
+{% extends 'cms/cms_base.html' %}
+
+{% block title %}
+    帖子管理
+{% endblock %}
+
+{% block head %}
+    <script type="text/javascript" src="{{ static('common/js/xtparam.js') }}"></script>
+    <script type="text/javascript" src="{{ static('cms/js/cms_posts.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <div class="top-group">
+        <div class="sort-group" style="float: left;">
+            <label>排序：</label>
+            <select class="top-select" id="sort-select">
+                <option value="1" {% if c_sort == 1 %}selected{% endif %}>按时间排序</option>
+                <option value="2" {% if c_sort == 2 %}selected{% endif %}>按加精排序</option>
+                <option value="4" {% if c_sort == 4 %}selected{% endif %}>按评论量排序</option>
+            </select>
+        </div>
+        <div class="board-filter-group" style="float: right;">
+            <label>过滤板块：</label>
+            <select class="top-select" id="board-filter-select">
+                <option value="0" {% if c_boars == 0 %}selected{% endif %}>所有板块</option>
+                {% for board in boards %}
+                    <option value="{{ board.id }}" {% if c_board == board.id %}selected{% endif %}>{{ board.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <th>标题</th>
+            <th>创建时间</th>
+            <th>板块</th>
+            <th>作者</th>
+            <th>操作</th>
+        </thead>
+        <tbody>
+            {% for post in posts %}
+                <tr>
+                    <td><a href="{{ url_for('post.post_detail',post_id=post.id) }}">{{ post.title }}</a></td>
+                    <td>{{ post.create_time }}</td>
+                    <td>{{ post.board.name }}</td>
+                    <td>{{ post.author.username }}</td>
+                    <td>
+                        {% if post.highlight %}
+                            <button class="btn btn-warning btn-xs btn-highlight" data-post-id="{{ post.id }}" data-is-highlight="1" >取消加精</button>
+                        {% else %}
+                            <button class="btn btn-primary btn-xs btn-highlight" data-post-id="{{ post.id }}" data-is-highlight="0">加精</button>
+                        {% endif %}
+                        <button class="btn btn-danger btn-xs btn-removed" data-post-id="{{ post.id }}">移除</button>
+                    </td>
+                </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    {% if t_page > 1 %}
+        <div class="page-nav">
+            <ul class="pagination">
+    			<li><a href="{{ url_for('cms.posts',t_page=1) }}">首页</a></li>
+                {% if c_page <= 1 %}
+                    <li class="disabled"><a href="javascript:void(0);">上一页</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('cms.posts',page = c_page - 1) }}">上一页</a></li>
+                {% endif %}
+    			{% for page in pages %}
+                    {% if c_page == page %}
+                        <li class="active"><a href="{{ url_for('cms.posts',page=page) }}">{{ page }}</a></li>
+                    {% else %}
+                         <li><a href="{{ url_for('cms.posts',page=page) }}">{{ page }}</a></li>
+                    {% endif %}
+    			{% endfor %}
+                {% if c_page >= t_page %}
+                    <li class="disabled"><a href="javascript:void(0);">下一页</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('cms.posts',page = c_page + 1) }}">下一页</a></li>
+                {% endif %}
+    			<li><a href="{{ url_for('cms.posts',page=t_page) }}">尾页</a></li>
+    		</ul>
+        </div>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,73 @@
+.top-group {
+    width: 100%;
+    overflow: hidden;
+}
+.top-group li{
+    float: left;
+    width: 175px;
+    margin-left: 10px;
+    background: #ffffff;
+    border: 1px solid #e6e6e6;
+    height: 100px;
+}
+.top-group li a{
+    color: #333;
+}
+.top-group li a:hover{
+    text-decoration: none;
+    color: #ff6f3d;;
+}
+.top-group li.current a{
+    color: #ff6f3d;
+}
+.top-group li:nth-of-type(1){
+    margin-left: 0;
+}
+.top-group li .icon-group{
+    text-align: center;
+    height: 70px;
+    line-height: 70px;
+}
+
+.iconfont{
+    font-size: 30px;
+}
+.block-title{
+    text-align: center;
+    height: 28px;
+    background: #F5F5F5;
+    line-height: 28px;
+    border-top: 1px solid #e6e6e6;
+}
+.outer-border{
+    border: 1px solid #e6e6e6;
+}
+.white-bg{
+    background: #fff;
+}
+
+.post-list-container{
+    margin-top: 10px;
+    overflow: hidden;
+}
+.post-list-container .post-con{
+    margin: 20px 30px;
+}
+
+.post-list-container .post-con .post-list .post-list-con .auth-msg{
+    cursor: default;
+}
+.auth-msg .user_name,.time,.comment-count,.read-count{
+    margin-right: 5px;
+}
+
+.page-nav{
+    text-align: center;
+}
+
+.add-post-group{
+    padding: 0 0 10px 0;
+}
+
+
+

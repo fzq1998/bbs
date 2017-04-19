@@ -1,0 +1,38 @@
+{% from 'common/macros.html' import static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>CMS登陆页</title>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+{#    <link href="{{ static('common/css/bootstarp.css') }}" rel="stylesheet">#}
+    <link href="{{  static('cms/css/cms_login.css') }} " rel="stylesheet">
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <form class="form-signin" method="post" action="">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          <h2 class="form-signin-heading">请登录</h2>
+          <label for="inputEmail" class="sr-only">邮箱</label>
+          <input type="email" id="inputEmail" class="form-control" placeholder="请输入邮箱" name="email" />
+          <label for="inputPassword" class="sr-only">密码</label>
+          <input type="password" id="inputPassword" class="form-control" placeholder="请输入密码"  name="password" />
+          <div class="checkbox">
+              <label>
+                  <input type="checkbox" value="1" name="remember">记住我
+              </label>
+          </div>
+          <button class="btn btn-lg btn-primary btn-block" type="submit">登陆</button>
+          {% if message %}
+            <p class="text-danger" style="text-align: center;line-height: 40px">{{ message }}</p>
+          {% endif %}
+      </form>
+    </div>
+  </body>
+</html>

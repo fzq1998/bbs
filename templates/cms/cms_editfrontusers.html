@@ -1,0 +1,78 @@
+{% extends 'cms/cms_base.html' %}
+
+{% block title %}
+    编辑用户页
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ static('cms/css/cms_frontusers.css') }}" />
+    <script type="text/javascript" src="{{ static('cms/js/cms_editfrontusers.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}
+    编辑的用户 - {{ current_user.username }}
+{% endblock %}
+
+{% block main_content %}
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <td>用户名：</td>
+                <td>{{ current_user.username }}</td>
+                <td>邮箱：</td>
+                <td>{{ current_user.email or '未填写' }}</td>
+            </tr>
+
+            <tr>
+                <td>真实姓名：</td>
+                <td>{{ current_user.realname or '未填写' }}</td>
+                <td>手机号：</td>
+                <td>{{ current_user.telephone }}</td>
+            </tr>
+
+            <tr>
+                <td>加入时间：</td>
+                <td>{{ current_user.join_time }}</td>
+                <td>状态：</td>
+                <td>
+                    {% if current_user.is_active %}
+                        <button class="btn btn-warning btn-xs">可用</button>
+                    {% else %}
+                        <button class="btn btn-danger btn-xs">禁用</button>
+                    {% endif %}
+                </td>
+            </tr>
+
+            <tr>
+                <td>论坛积分：</td>
+                <td>{{ current_user.points }}</td>
+                <td>性别：</td>
+                <td>
+                    {% if current_user.gender == 1 %}男
+                    {% elif current_user.gender == 2 %}女
+                    {% elif current_user.gender == 3 %}保密
+                    {% else %}未知
+                    {% endif %}
+                </td>
+            </tr>
+
+             <tr>
+                <td>qq号码：</td>
+                <td>{{ current_user.qq or '未填写' }}</td>
+                <td>签名：</td>
+                <td>{{ current_user.signature or '未填写' }}</td>
+            </tr>
+             <tr>
+                <td>上次登录：</td>
+                <td>{{ current_user.last_login_time or '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="button">
+        {% if current_user.is_active %}
+            <button class="btn btn-danger btn-block" id="btn-black-list" data-is-active="1" data-user-id="{{ current_user.id }}">禁用</button>
+        {% else %}
+            <button class="btn btn-warning btn-block" id="btn-black-list" data-is-active="0" data-user-id="{{ current_user.id }}">取消禁用</button>
+        {% endif %}
+    </div>
+{% endblock %}

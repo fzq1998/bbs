@@ -1,0 +1,59 @@
+{% extends 'front/front_signup_base.html' %}
+
+{% block title %}
+    注册页 - char论坛
+{% endblock %}
+
+{% block head %}
+    <script type="text/javascript" src="{{ static('front/js/front_regist.js') }}"></script>
+    <script type="text/javascript"  src="{{ static('common/js/xtparam.js') }}"></script>
+    <script type="text/javascript" src="{{ static('front/js/front_graph_captcha.js') }}"></script>
+{% endblock %}
+
+{% block container %}
+    <div class="form-regist">
+         <div class="form-group">
+            <div class="input-group">
+                <input type="tel" class="form-control" placeholder="请您输入手机号码" name="telephone" value="{{ telephone }}">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" id="btn-send-captcha">发送验证码</button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="请您输入短信验证码" name="sms_captcha">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="username" placeholder="请输入您的用户名" value="{{ username }}">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="请您输入密码">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" name="password_repeat" placeholder="请您确认密码">
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <input type="text" class="form-control" name="graph_captcha" placeholder="请您输入图形验证码">
+                <span class="input-group-addon graph-captcha-addon" id="btn-graph-captcha">
+                    <img src="{{ url_for('account.graph_captcha') }}"  alt="">
+                </span>
+            </div>
+        </div>
+        {% if message %}
+            <p class="text-danger text-center">{{ message }}</p>
+        {% endif %}
+        <div class="form-group">
+            <button class="btn btn-warning btn-block">立即注册</button>
+        </div>
+        <div class="form-group">
+            <a class="btn btn-warning btn-block login" href="{{ url_for('account.login') }}">立即登陆</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block signup %}
+    <p>已有账号了，<br/>
+        那就赶快去登陆吧！！</p>
+    <a class="btn btn-warning btn-block" href="{{ url_for('account.login') }}">立即登陆</a>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'front/front_base.html' %}
+
+{% block title %}
+    个人信息设置
+{% endblock %}
+
+{% block head %}
+    <meta name="Author" content="Char1998">
+    <meta name="Keywords" content="char论坛,设置页,论坛">
+    <meta name="Description" content="这是char论坛的设置页">
+    <link rel="stylesheet" href="{{ static('front/css/front_settings.css') }}">
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
+    <script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
+    <script src="{{url_for('static',filename='common/js/xtqiniu.js') }}"></script>
+    <script src="{{ url_for('static',filename='front/js/front_settings.js') }}"></script>
+{% endblock %}
+
+{% block container %}
+    <div class="container-inner">
+        <h2>个人信息</h2>
+            <div class="form-group">
+                <label>用户名</label>
+                <input type="text" class="form-control" placeholder="请您输入用户名" name="username" value="{{ front_user.username }}">
+            </div>
+            {# 验证邮箱 #}
+            <form action="" method="post">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="email" class="form-control" name="email" placeholder={% if front_user.email %}"{{ front_user.email }}"{% else %}"请您输入邮箱"{% endif %}/>
+                        <span class="input-group-addon" id="btn-captcha" style="cursor: pointer">获取验证码</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="captcha" placeholder="请您输入验证码"/>
+                </div>
+            </form>
+            <div class="form-group">
+                <label>真实姓名</label>
+                <input type="text" class="form-control" name="realname" placeholder="请您输入您的真实姓名" value="{{ front_user.realname or '' }}">
+            </div>
+            <label>性别</label>
+            <div class="form-group" style="margin: 10px;">
+                <label class="radio-inline">
+                      <input type="radio"  value="1" name="gender" {% if front_user.gender == 1 %}checked="checked"{% endif %}>男
+                </label>
+                <label class="radio-inline">
+                      <input type="radio"  value="2" name="gender" {% if front_user.gender == 2 %}checked="checked"{% endif %}>女
+                </label>
+                <label class="radio-inline">
+                      <input type="radio"  value="3" name="gender" {% if front_user.gender == 3 %}checked="checked"{% endif %}>保密
+                </label>
+            </div>
+            <div class="form-group">
+                <label>QQ</label>
+                <input type="text" class="form-control" placeholder="请您输入您的QQ" name="qq" value="{{ front_user.qq or '' }}">
+            </div>
+            <div class="form-group">
+                <label>头像</label>
+                <div>
+                    <img src="{{ front_user.avatar or static('common/images/logo.jpg') }}" class="img-circle avatar-img" alt="点击选择头像" id="avatar-img" title="请选择您的头像">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>个性签名</label>
+                <textarea id="signature-area" class="form-control" placeholder="请输入您签名" name="signature">{{ front_user.signature or '' }}</textarea>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary" id="btn-settings" data-user-id="{{ front_user.id }}">保存</button>
+            </div>
+    </div>
+{% endblock %}

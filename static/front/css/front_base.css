@@ -1,0 +1,130 @@
+a, abbr, acronym, address, applet, article, aside, audio, b, big, blockquote, body, canvas, caption, cite, code, dd, del, details, dfn, div, dl, dt, em, fieldset, figcaption, figure, footer, form, h1, h2, h3, h4, h5, h6, header, hgroup, html, i, iframe, img, ins, kbd, label, legend, li, mark, menu, nav, object, ol, output, p, pre, q, ruby, s, samp, section, small, span, strike, strong, sub, summary, sup, table, tbody, td, tfoot, th, thead, time, tr, tt, u, ul, var, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    list-style: none;
+    vertical-align: baseline;
+}
+
+.form-control:focus {
+  box-shadow: none;
+  border-color: #ccc;
+}
+
+.form-control{
+    box-shadow: none;
+}
+
+.captcha-img{
+    width: 80px;
+    height:30px;
+}
+
+.captcha-addon{
+    padding: 0;
+    cursor: pointer;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+.container{
+    width: 990px;
+    padding: 0;
+}
+
+body{
+    background: #f3f3f3;
+    font-family: arial,"Microsoft Yahei","Hiragino Sans GB",sans-serif;
+    color: #333;
+    font-size: 14px;
+}
+
+.user-avatar{
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin: 0 5px -5px -15px;
+    transition:transform 1s;
+}
+.user-avatar:hover{
+    transform: rotate(360deg);
+    border:1px solid #cf3;
+}
+
+.list-group-item.header{
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+.list-group-item.active{
+    background: #f0ad4e;
+    border-color: #f0ad4e;
+}
+.list-group-item.active:hover{
+    background: #f0ad4e;
+    border-color: #f0ad4e;
+}
+
+.lg-container{
+    width: 74%;
+    float: left;
+}
+
+.sm-container{
+    width: 24%;
+    float: right;
+}
+
+
+.post-list li{
+    padding-top: 16px;
+}
+
+.post-list li .post-list-img{
+    width: 50px;
+    float: left;
+}
+
+.post-list-img img{
+    width: 50px;
+    height:50px;
+    border-radius: 50%;
+    display: block;
+}
+
+.post-list li .post-list-con{
+    margin-left: 60px;
+}
+
+.post-list-con .title{
+    margin-top: 10px;
+}
+
+.post-list-con .title .title_name{
+    max-width: 524px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #333;
+    font-size: 16px;
+}
+
+.title .title_name:hover{
+    color: #ff6f3d;
+}
+
+.post-list-con .auth-msg{
+    line-height: 18px;
+    margin: 6px 0 0;
+    padding-bottom: 11px;
+    border-bottom: 1px solid #e6e6e6;
+    color: #8c8c8c;
+    font-size: 12px;
+}
+
+.auth-msg .user_name{
+    color: #8c8c8c;
+}
+

@@ -1,0 +1,60 @@
+{% extends 'cms/cms_base.html' %}
+
+{% block title %}
+    CMS用户管理
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block head %}{% endblock %}
+
+{% block main_content %}
+    <div>
+        <div class="top-group">
+            <a style="float: right;" class="btn btn-warning" href="{{ url_for('cms.add_cms_user') }}" >添加管理员</a>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+               <th>用户名</th>
+               <th>邮箱</th>
+               <th>加入时间</th>
+               <th>分组</th>
+               <th>状态</th>
+               <th>操作</th>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.join_time }}</td>
+                        <td>
+                            {% for role in user.roles %}
+                                {{ role.name }}
+                                {% if  not loop.last %},{% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {% if user.is_active %}
+                                <label class="label label-success btn-sm">可用</label>
+                            {% else %}
+                                <label class="label label-danger btn-sm">已拉黑</label>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if user.id == cms_user.id %}
+                                <a class="btn btn-primary btn-sm disabled" href="{{ url_for('cms.edit_cms_user',user_id=user.id) }}">编辑</a>
+                            {% else %}
+                                <a class="btn btn-primary btn-sm" href="{{ url_for('cms.edit_cms_user',user_id=user.id) }}">编辑</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+
+
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

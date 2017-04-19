@@ -1,0 +1,40 @@
+{% extends 'cms/cms_base.html' %}
+
+
+{% block title %}
+    修改密码
+{% endblock %}
+
+{% block head %}
+    <script type="text/javascript" src="{{ static('cms/js/cms_resetpwd.js') }}"></script>
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block main_content %}
+    <form class="form-min" action="" method="post">
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">原密码</span>
+                <input type="password" class="form-control" name="oldpwd" placeholder="请输入原密码" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">新密码</span>
+                <input type="password" class="form-control" name="newpwd" placeholder="请输入新密码" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <span class="input-group-addon">确认新密码</span>
+                <input type="password" class="form-control" name="newpwd_repeat" placeholder="请确认新密码" />
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary" type="submit" id="btn-resetpwd">立即更改</button>
+        </div>
+    </form>
+{% endblock %}

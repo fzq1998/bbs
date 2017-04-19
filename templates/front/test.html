@@ -1,0 +1,23 @@
+{% from 'common/macros.html' import static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% include 'common/head_base.html' %}
+    <script src="https://cdn.staticfile.org/Plupload/2.1.1/moxie.js"></script>
+	<script src="https://cdn.staticfile.org/Plupload/2.1.1/plupload.dev.js"></script>
+	<script src="https://cdn.staticfile.org/qiniu-js-sdk/1.0.14-beta/qiniu.js"></script>
+    <script src="{{ static('common/js/xtqiniu.js') }}"></script>
+    <script>
+        $(function () {
+            xtqiniu.setUp({
+                'browse_btn': 'btn-upload'
+            });
+        });
+    </script>
+</head>
+<body>
+    <button class="btn btn-primary" id="btn-upload">上传图片或视频</button>
+</body>
+</html>

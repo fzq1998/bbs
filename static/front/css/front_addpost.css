@@ -1,0 +1,10 @@
+textarea{
+    height: 520px;
+}
+.graph-captcha{
+    width: 250px;
+}
+.captcha-addon{
+    padding: 0;
+    cursor: pointer;
+}

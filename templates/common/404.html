@@ -1,0 +1,49 @@
+{% from 'common/macros.html'import static %}
+<!doctype html>
+<html>
+<head>
+    <title>404页面</title>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="{{ static('common/css/404.css') }}">
+    <script src="{{ static('common/js/jquery.js') }}"></script>
+    <script src="{{ static('common/js/404.js') }}"></script>
+
+</head>
+<body>
+<div id="content" class="cf">
+	<div id="char_wrap">
+		<div class="logo_wrap cf">
+			<a href="#" id="logo">
+				<img src="{{ static('common/images/logo.jpg') }}" alt="logo" width="83">
+			</a>
+			<div id="title"><i>C</i><i>h</i><i>a</i><i>r</i><i>论坛</i></div>
+		</div>
+		<div class="reason">
+			<p class="not_found_tip">Not Found  :( 很抱歉，您访问的页面不存在!</p>
+			<p class="possible">可能原因：</p>
+			<ul>
+				<li>该帖子已被删除，但却被搜索引擎收录了，通过搜索引擎访问就会看到此页面</li>
+				<li>您手动输入了一个从来没有的访问url，这样系统也是无法识别您的url，报错</li>
+			</ul>
+		</div>
+	</div>
+	<!-- #char_wrap -->
+	<div class="line"></div>
+
+	<div class="not_found">
+		<i class="ribbon"></i>
+		<div class="not_found_404 cf">
+			<span>4</span>
+			<span>0</span>
+			<span>4</span>
+		</div>
+		<div class="btn">
+			<a href="{{ url_for('post.index') }}" class="button button-rounded">看看首页</a>
+			<a href="#" class="button button-rounded cancle">返回上页</a>
+		</div>   
+	</div>
+	<!-- not_found -->
+
+</div>
+</body>
+</html>

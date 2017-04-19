@@ -1,0 +1,127 @@
+/*首页响应式处理*/
+@media screen and (max-width: 980px) {
+     .container {
+         width: 798px;
+     }
+     .container .lg-container {
+         width: 72%;
+     }
+     .container .sm-container {
+         width: 24%;
+     }
+     .top-group li {
+         width: 136px;
+     }
+ }
+ @media screen and (max-width: 888px) {
+     .container {
+         width: 768px;
+     }
+     .container .lg-container {
+         width: 74%;
+     }
+     .container .sm-container {
+         width: 24%;
+     }
+     .top-group li {
+         width: 134px;
+     }
+ }
+ @media screen and (max-width: 838px) {
+     .container {
+         width: 728px;
+     }
+     .container .lg-container {
+         width: 74%;
+     }
+     .container .sm-container {
+         width: 24%;
+     }
+     .top-group li {
+         width: 127px;
+     }
+ }
+ @media screen and (max-width: 768px) {
+     .container {
+         width: 668px;
+     }
+     .container .lg-container {
+         width: 74%;
+     }
+     .container .sm-container {
+         width: 24%;
+     }
+     .top-group li {
+         width: 116px;
+     }
+ }
+ @media screen and (max-width: 728px) {
+     .container {
+         width: 638px;
+     }
+     .container .lg-container {
+         width: 74%;
+     }
+     .container .sm-container {
+         width: 24%;
+     }
+     .top-group li {
+         width: 110px;
+     }
+ }
+ @media screen and (max-width: 698px) {
+     .container {
+         width: 598px;
+     }
+     .container .lg-container {
+         width: 74%;
+     }
+     .container .sm-container {
+         width: 24%;
+     }
+     .top-group li {
+         width: 103px;
+     }
+ }
+ @media screen and (max-width: 638px) {
+     .container {
+         width: 498px;
+     }
+     .container .lg-container {
+         width: 74%;
+     }
+     .container .sm-container {
+         width: 24%;
+     }
+     .top-group li {
+         width: 84px;
+     }
+ }
+ @media screen and (max-width: 568px) {
+     .container {
+         width: 470px;
+     }
+     .container .lg-container {
+         width: 74%;
+     }
+     .container .sm-container {
+         width: 24%;
+     }
+     .top-group li {
+         width: 79px;
+     }
+ }
+ @media screen and (max-width: 528px) {
+     .container {
+         width: 455px;
+     }
+     .container .lg-container {
+         width: 74%;
+     }
+     .container .sm-container {
+         width: 24%;
+     }
+     .top-group li {
+         width: 76px;
+     }
+ }
