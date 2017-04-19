@@ -1,4 +1,4 @@
-# 这是一个基于 Python27和Flask以及Bootstarp搭建的一个论坛项目
+## 这是一个基于 Python27和Flask以及Bootstarp搭建的一个论坛项目
 
 **项目描述**：本项目分为两个部分，分为前台和CMS管理系统。
 
