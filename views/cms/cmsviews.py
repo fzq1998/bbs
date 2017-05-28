@@ -5,8 +5,8 @@ from flask import Blueprint
 bp = Blueprint('cms',__name__,subdomain='cms')
 
 import flask
-from forms.cms.cmsforms import CMSLoginForm,CMSResetpwdForm,CMSResetmailForm,CMSAdduserForm,CMSBlackCMSUserForm,CMSBlackFrontUserForm,CMSEditBoardsForm,CMSHighlightPostForm
 import constants
+from forms.cms.cmsforms import CMSLoginForm,CMSResetpwdForm,CMSResetmailForm,CMSAdduserForm,CMSBlackCMSUserForm,CMSBlackFrontUserForm,CMSEditBoardsForm,CMSHighlightPostForm
 from models.cms.cmsmodels import CMSUser,CMSRole
 from models.common.commonmodels import BoardModel,PostModel,HighlightPostModel, CommentModel
 from models.common.modelhelpers import PostModelHelper
@@ -16,7 +16,6 @@ from decorators.cms.cmsdecorators import login_required,superadmin_required
 from exts import db
 from utils import xtjson,xtcache,xqmail
 from utils.captcha.xtcaptcha import Captcha
-
 
 
 @bp.route('/')
