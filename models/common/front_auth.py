@@ -1,4 +1,4 @@
-#coding: utf8
+# coding: utf8
 
 import flask
 from models.front.frontmodels import FrontUser
@@ -8,12 +8,12 @@ from exts import db
 import constants
 
 
-def login_front(telephone,password):
+def login_front(telephone, password):
     user = FrontUser.query.filter_by(telephone=telephone).first()
     if user and user.check_password(password):
         # 设置session
         flask.session[FRONT_SESSION_ID] = user.id
-        setattr(flask.g,'front_user',user)
+        setattr(flask.g, 'front_user', user)
         # 获取上次登录的时间
         last_login_time = user.last_login_time
         now = datetime.now()
@@ -29,4 +29,4 @@ def login_front(telephone,password):
 
 
 def logout_front():
-    flask.session.pop(FRONT_SESSION_ID,None)
+    flask.session.pop(FRONT_SESSION_ID, None)

@@ -3,15 +3,15 @@
  */
 
 var xtparam = {
-    setParam: function (href,key,value) {
+    setParam: function (href, key, value) {
         // 重新加载整个页面
         var isReplaced = false;
         var urlArray = href.split('?');
-        if(urlArray.length > 1){
+        if (urlArray.length > 1) {
             var queryArray = urlArray[1].split('&');
-            for(var i=0; i < queryArray.length; i++){
+            for (var i = 0; i < queryArray.length; i++) {
                 var paramsArray = queryArray[i].split('=');
-                if(paramsArray[0] == key){
+                if (paramsArray[0] == key) {
                     paramsArray[1] = value;
                     queryArray[i] = paramsArray.join('=');
                     isReplaced = true;
@@ -19,25 +19,25 @@ var xtparam = {
                 }
             }
 
-            if(!isReplaced){
+            if (!isReplaced) {
                 var params = {};
                 params[key] = value;
-                if(urlArray.length > 1){
+                if (urlArray.length > 1) {
                     href = href + '&' + $.param(params);
-                }else{
+                } else {
                     href = href + '?' + $.param(params);
                 }
-            }else{
+            } else {
                 var params = queryArray.join('&');
                 urlArray[1] = params;
                 href = urlArray.join('?');
             }
-        }else{
+        } else {
             var param = {};
             param[key] = value;
-            if(urlArray.length > 1){
+            if (urlArray.length > 1) {
                 href = href + '&' + $.param(param);
-            }else{
+            } else {
                 href = href + '?' + $.param(param);
             }
         }

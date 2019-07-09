@@ -1,7 +1,6 @@
 /**
  * Created by veblen on 2017/3/26.
  */
-//创建板块
 $(function () {
     $("#btn-add-board").on('click', function (event) {
         event.preventDefault();
@@ -17,7 +16,7 @@ $(function () {
                         'name': inputValue
                     },
                     'success': function (data) {
-                        if (data['code'] == 200) {
+                        if (data['code'] === 200) {
                             xtalert.alertSuccessToast('恭喜，'+inputValue+'板块添加成功');
                             setTimeout(function () {
                                 window.location.reload()
@@ -53,7 +52,7 @@ $(function () {
                         'board_id': board_id
                     },
                     'success': function (data) {
-                        if (data['code'] == 200) {
+                        if (data['code'] === 200) {
                             xtalert.alertSuccessToast('恭喜，板块修改成功');
                             setTimeout(function () {
                                 window.location.reload()
@@ -86,7 +85,7 @@ $(function () {
                         'board_id': board_id
                     },
                     'success': function (data) {
-                        if (data['code'] == 200) {
+                        if (data['code'] === 200) {
                             xtalert.alertSuccessToast('恭喜,板块已经成功删除');
                             setTimeout(function () {
                                 window.location.reload();

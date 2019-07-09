@@ -17,7 +17,7 @@ $(function () {
                 'is_highlight': !is_highlight
             },
             'success': function (data) {
-                if (data['code'] == 200) {
+                if (data['code'] === 200) {
                     var msg = '';
                     if (is_highlight) {
                         msg = '取消加精成功';
@@ -51,7 +51,7 @@ $(function () {
                 'post_id' : post_id
             },
             'success': function (data) {
-                if (data['code'] == 200) {
+                if (data['code'] === 200) {
                     xtalert.alertSuccessToast('帖子移除成功');
                     setTimeout(function () {
                         window.location.reload()

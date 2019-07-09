@@ -13,7 +13,7 @@ $(function () {
                'email' : email
            },
            'success' : function (data) {
-               if(data['code'] == 200){
+               if(data['code'] === 200){
                    xtalert.alertSuccessToast('验证码已发送,请注意查收')
                }else{
                    xtalert.alertInfoToast(data['message'])
@@ -41,7 +41,7 @@ $(function () {
                'captcha' : captcha
            },
            'success' : function (data) {
-               if (data['code'] == 200){
+               if (data['code'] === 200){
                    emailInput.val('');
                    captchaInput.val('');
                    xtalert.alertSuccessToast('恭喜邮箱修改成功！');

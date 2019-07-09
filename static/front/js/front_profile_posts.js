@@ -7,7 +7,7 @@ $(function () {
     $('#btn-post').click(function (event) {
         event.preventDefault();
         var self = $(this);
-        if(!self.hasClass('current')){
+        if (!self.hasClass('current')) {
             self.addClass('current');
             var post_list = $(".post-list");
             var comment_list = $('.comment-list');
@@ -19,7 +19,7 @@ $(function () {
     $('#btn-comment').click(function (event) {
         event.preventDefault();
         var self = $(this);
-        if(!self.hasClass('current')){
+        if (!self.hasClass('current')) {
             self.addClass('current');
             var post_list = $(".post-list");
             var comment_list = $('.comment-list');

@@ -16,51 +16,55 @@ try:
 except:
     from io import BytesIO as StringIO
 from utils.captcha.xtcaptcha import Captcha
-from utils import xtcache,xtjson
+from utils import xtcache, xtjson
 import re
-from forms.front.frontforms import FrontRegistForm,FrontLoginForm,FrontSettingsForm,FrontUserSignIn
+from forms.front.frontforms import FrontRegistForm, FrontLoginForm, FrontSettingsForm, FrontUserSignIn
 from models.front.frontmodels import FrontUser
 from datetime import datetime
 from decorators.fornt.frontdecorators import login_required
 
-bp = Blueprint('account',__name__,url_prefix='/account')
+bp = Blueprint('account', __name__, url_prefix='/account')
 
 
 @bp.route('/')
 def index():
     return 'account index'
 
+
 class RegistView(views.MethodView):
 
-    def get(self, message=None,**kwargs):
+    def get(self, message=None, **kwargs):
         context = {
-            'message' :message,
+            'message': message,
         }
         context.update(kwargs)
-        return flask.render_template('front/front_regist.html',**context)
+        return flask.render_template('front/front_regist.html', **context)
+
     def post(self):
         form = FrontRegistForm(flask.request.form)
         if form.validate():
             telephone = form.telephone.data
             username = form.username.data
             password = form.password.data
-            user = FrontUser(telephone=telephone,username=username,password=password)
+            user = FrontUser(telephone=telephone, username=username, password=password)
             db.session.add(user)
             db.session.commit()
             return flask.redirect(flask.url_for('account.login'))
         else:
             telephone = flask.request.form.get('telephone')
             username = flask.request.form.get('username')
-            return self.get(message=form.get_error(),telephone=telephone,username=username)
+            return self.get(message=form.get_error(), telephone=telephone, username=username)
+
 
 class LoginView(views.MethodView):
 
-    def get(self,message=None,**kwargs):
+    def get(self, message=None, **kwargs):
         context = {
-            'message' :message,
+            'message': message,
         }
         context.update(kwargs)
-        return flask.render_template('front/front_login.html',**context)
+        return flask.render_template('front/front_login.html', **context)
+
     def post(self):
         form = FrontLoginForm(flask.request.form)
         if form.validate():
@@ -68,7 +72,7 @@ class LoginView(views.MethodView):
             password = form.password.data
             remember = form.remember.data
             user = login_front(telephone, password)
-            tel = login_front(telephone,password)
+            tel = login_front(telephone, password)
             if not tel:
                 return self.get(message=u'该用户不存在，请先注册后再行登录')
             if user:
@@ -87,13 +91,15 @@ class LoginView(views.MethodView):
                 return self.get(message=u'用户名或密码输入有误，请重新输入')
         else:
             telephone = flask.request.form.get('telephone')
-            return self.get(message=form.get_error(),telephone=telephone)
+            return self.get(message=form.get_error(), telephone=telephone)
 
-bp.add_url_rule('/regist/',view_func=RegistView.as_view('regist'))
-bp.add_url_rule('/login/',view_func=LoginView.as_view('login'))
 
-#个人设置页
-@bp.route('/settings/',methods=['POST','GET'])
+bp.add_url_rule('/regist/', view_func=RegistView.as_view('regist'))
+bp.add_url_rule('/login/', view_func=LoginView.as_view('login'))
+
+
+# 个人设置页
+@bp.route('/settings/', methods=['POST', 'GET'])
 @login_required
 def settings():
     if flask.request.method == 'GET':
@@ -141,24 +147,26 @@ def settings():
         else:
             return xtjson.json_params_error(message=form.get_error())
 
+
 # 发送邮箱验证码
 @bp.route('/settings/mail_captcha/')
 def mail_captcha():
     email = flask.request.args.get('email')
     user = FrontUser.query.filter_by(email=email).first()
     if user:
-       return xtjson.json_params_error(u'该邮箱已使用，请您更换邮箱')
+        return xtjson.json_params_error(u'该邮箱已使用，请您更换邮箱')
     if xtcache.get(email):
         return xtjson.json_params_error(u'已经给该邮箱发送验证码,请勿重复发送!')
     captcha = Captcha.gene_text()
-    if xqmail.send_mail(subject=u'论坛验证码',receivers=email,body=u'您的验证码为：'+captcha+u'，请您注意保密'):
-        xtcache.set(email,captcha)
+    if xqmail.send_mail(subject=u'论坛验证码', receivers=email, body=u'您的验证码为：' + captcha + u'，请您注意保密'):
+        xtcache.set(email, captcha)
         return xtjson.json_result()
     else:
         return xtjson.json_server_error()
 
+
 # 用户详情页
-@bp.route('/profile/<user_id>',methods=['GET'])
+@bp.route('/profile/<user_id>', methods=['GET'])
 @login_required
 def profile(user_id=0):
     if not user_id:
@@ -169,11 +177,12 @@ def profile(user_id=0):
         context = {
             'current_user': user
         }
-        return flask.render_template('front/front_profile.html',**context)
+        return flask.render_template('front/front_profile.html', **context)
     else:
         return flask.abort(404)
 
-@bp.route('/profile/posts/',methods=['GET'])
+
+@bp.route('/profile/posts/', methods=['GET'])
 @login_required
 def profile_posts():
     user_id = flask.request.args.get('user_id')
@@ -185,12 +194,13 @@ def profile_posts():
         context = {
             'current_user': user
         }
-        return flask.render_template('front/front_profile_posts.html',**context)
+        return flask.render_template('front/front_profile_posts.html', **context)
     else:
         return flask.abort(404)
 
+
 # 签到功能
-@bp.route('/sign_in/',methods=['POST'])
+@bp.route('/sign_in/', methods=['POST'])
 @login_required
 def sign_in():
     form = FrontUserSignIn(flask.request.form)
@@ -215,7 +225,7 @@ def sign_in():
         return xtjson.json_params_error(message=form.get_error())
 
 
-#注册时发送短信验证码
+# 注册时发送短信验证码
 @bp.route('/regist/sms_captcha/')
 def sms_captcha():
     telephone = flask.request.args.get('telephone')
@@ -244,20 +254,21 @@ def sms_captcha():
     req.sms_template_code = constants.ALIDAYU_TEMPLATE_CODE
     try:
         resp = req.getResponse()
-        xtcache.set(telephone,captcha)
+        xtcache.set(telephone, captcha)
         return xtjson.json_result()
     except Exception, e:
         print e
         return xtjson.json_server_error()
 
+
 # 生成图形验证码
 @bp.route('/graph_captcha/')
 def graph_captcha():
-    text,image = Captcha.gene_code()
+    text, image = Captcha.gene_code()
     # StringIO 相当于一个管道
     out = StringIO()
     # 把image塞到StringIO这个管道中
-    image.save(out,'png')
+    image.save(out, 'png')
     # 将StringIO的指针指向开始的地方 0
     out.seek(0)
 
@@ -265,7 +276,7 @@ def graph_captcha():
     response = flask.make_response(out.read())
     # 指定响应的类型
     response.content_type = 'image/png'
-    xtcache.set(text.lower(),text.lower(),timeout=3*60)
+    xtcache.set(text.lower(), text.lower(), timeout=3 * 60)
     return response
 
 

@@ -4,17 +4,16 @@
 from flask import Blueprint
 import flask
 import constants
-from models.front.frontmodels import FrontUser,SignInModel
-from models.common.commonmodels import BoardModel,PostModel,CommentModel,PostStarModel
+from models.front.frontmodels import FrontUser, SignInModel
+from models.common.commonmodels import BoardModel, PostModel, CommentModel, PostStarModel
 from models.common.modelhelpers import PostModelHelper
 from utils import xtjson
 from exts import db
 from decorators.fornt.frontdecorators import login_required
-from forms.front.frontforms import FrontSendPostForm,FrontAddCommentForm,FrontPostStarForm
+from forms.front.frontforms import FrontSendPostForm, FrontAddCommentForm, FrontPostStarForm
 import qiniu
 
-
-bp = Blueprint('post',__name__)
+bp = Blueprint('post', __name__)
 
 
 @bp.route('/')
@@ -23,12 +22,12 @@ def index():
 
 
 @bp.route('/list/<int:page>/<int:sort_type>/<int:board_id>')
-def post_list(page,sort_type,board_id):
-    context = PostModelHelper.post_list(page,sort_type,board_id)
-    return flask.render_template('front/front_index.html',**context)
+def post_list(page, sort_type, board_id):
+    context = PostModelHelper.post_list(page, sort_type, board_id)
+    return flask.render_template('front/front_index.html', **context)
 
 
-@bp.route('/add_post/',methods=['GET','POST'])
+@bp.route('/add_post/', methods=['GET', 'POST'])
 @login_required
 def add_post():
     if flask.request.method == 'GET':
@@ -36,14 +35,14 @@ def add_post():
         context = {
             'boards': boards
         }
-        return flask.render_template('front/front_addpost.html',**context)
+        return flask.render_template('front/front_addpost.html', **context)
     else:
         form = FrontSendPostForm(flask.request.form)
         if form.validate():
             title = form.title.data
             content = form.content.data
             board_id = form.board_id.data
-            post_model = PostModel(title=title,content=content)
+            post_model = PostModel(title=title, content=content)
             board_model = BoardModel.query.filter_by(id=board_id).first()
             if not board_model:
                 return xtjson.json_params_error(message=u'不存在该板块')
@@ -58,7 +57,7 @@ def add_post():
 
 @bp.route('/post/detail/<int:post_id>')
 def post_detail(post_id):
-    post_model = PostModel.query.filter(PostModel.is_removed==False,                          PostModel.id==post_id).first()
+    post_model = PostModel.query.filter(PostModel.is_removed == False, PostModel.id == post_id).first()
     if not post_model:
         return flask.abort(404)
     star_author_ids = [star_model.author.id for star_model in post_model.stars]
@@ -69,24 +68,24 @@ def post_detail(post_id):
     db.session.commit()
 
     context = {
-        'post':post_model,
-        'star_author_ids':star_author_ids
+        'post': post_model,
+        'star_author_ids': star_author_ids
     }
-    return flask.render_template('front/front_postdetail.html',**context)
+    return flask.render_template('front/front_postdetail.html', **context)
 
 
-@bp.route('/post/add_comment/', methods=['GET','POST'])
+@bp.route('/post/add_comment/', methods=['GET', 'POST'])
 @login_required
 def post_addcomment():
     if flask.request.method == 'GET':
-        post_id = flask.request.args.get('post_id',type=int)
-        comment_id = flask.request.args.get('comment_id',type=int)
+        post_id = flask.request.args.get('post_id', type=int)
+        comment_id = flask.request.args.get('comment_id', type=int)
         context = {
-            'post':PostModel.query.get(post_id)
+            'post': PostModel.query.get(post_id)
         }
         if comment_id:
             context['origin_comment'] = CommentModel.query.get(comment_id)
-        return flask.render_template('front/front_addcomment.html',**context)
+        return flask.render_template('front/front_addcomment.html', **context)
     else:
         form = FrontAddCommentForm(flask.request.form)
         if form.validate():
@@ -171,6 +170,4 @@ def qiniu_token():
     bucket_name = 'fubbs'
     # 生成token
     token = q.upload_token(bucket_name)
-    return flask.jsonify({'uptoken':token})
-
-
+    return flask.jsonify({'uptoken': token})

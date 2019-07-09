@@ -28,7 +28,7 @@ $(function () {
                 'roles' : roles
             },
             'success': function (data) {
-                if(data['code'] == 200){
+                if(data['code'] === 200){
                     usernameInput.val('');
                     emailInput.val('');
                     passwordInput.val('');

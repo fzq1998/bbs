@@ -2,19 +2,21 @@
 # coding: utf-8
 
 from flask import Blueprint
-bp = Blueprint('cms',__name__,subdomain='cms')
+
+bp = Blueprint('cms', __name__, subdomain='cms')
 
 import flask
 import constants
-from forms.cms.cmsforms import CMSLoginForm,CMSResetpwdForm,CMSResetmailForm,CMSAdduserForm,CMSBlackCMSUserForm,CMSBlackFrontUserForm,CMSEditBoardsForm,CMSHighlightPostForm
-from models.cms.cmsmodels import CMSUser,CMSRole
-from models.common.commonmodels import BoardModel,PostModel,HighlightPostModel, CommentModel
+from forms.cms.cmsforms import CMSLoginForm, CMSResetpwdForm, CMSResetmailForm, CMSAdduserForm, CMSBlackCMSUserForm, \
+    CMSBlackFrontUserForm, CMSEditBoardsForm, CMSHighlightPostForm
+from models.cms.cmsmodels import CMSUser, CMSRole
+from models.common.commonmodels import BoardModel, PostModel, HighlightPostModel, CommentModel
 from models.common.modelhelpers import PostModelHelper
 from models.front.frontmodels import FrontUser
 from flask.views import MethodView
-from decorators.cms.cmsdecorators import login_required,superadmin_required
+from decorators.cms.cmsdecorators import login_required, superadmin_required
 from exts import db
-from utils import xtjson,xtcache,xqmail
+from utils import xtjson, xtcache, xqmail
 from utils.captcha.xtcaptcha import Captcha
 
 
@@ -27,8 +29,8 @@ def index():
 # CMS用户登录
 class CMSLoginView(MethodView):
 
-    def get(self,message=None):
-        return flask.render_template('cms/cms_login.html',message=message)
+    def get(self, message=None):
+        return flask.render_template('cms/cms_login.html', message=message)
 
     def post(self):
         form = CMSLoginForm(flask.request.form)
@@ -52,7 +54,8 @@ class CMSLoginView(MethodView):
             message = form.get_error()
             return self.get(message=message)
 
-bp.add_url_rule('/login/',view_func=CMSLoginView.as_view('login'))
+
+bp.add_url_rule('/login/', view_func=CMSLoginView.as_view('login'))
 
 
 # 退出登录
@@ -70,7 +73,7 @@ def profile():
 
 
 # 重置密码
-@bp.route('/resetpwd/',methods=['GET','POST'])
+@bp.route('/resetpwd/', methods=['GET', 'POST'])
 @login_required
 def resetpwd():
     if flask.request.method == 'GET':
@@ -94,7 +97,7 @@ def resetpwd():
 
 
 # 重置邮箱
-@bp.route('/resetmail/',methods=['GET','POST'])
+@bp.route('/resetmail/', methods=['GET', 'POST'])
 @login_required
 def resetmail():
     if flask.request.method == 'GET':
@@ -121,8 +124,8 @@ def mail_captcha():
     if xtcache.get(email):
         return xtjson.json_params_error(u'已经给该邮箱发送验证码,请勿重复发送!')
     captcha = Captcha.gene_text()
-    if xqmail.send_mail(subject=u'论坛验证码',receivers=email,body=u'您的验证码为：'+captcha+u'，请您注意保密'):
-        xtcache.set(email,captcha)
+    if xqmail.send_mail(subject=u'论坛验证码', receivers=email, body=u'您的验证码为：' + captcha + u'，请您注意保密'):
+        xtcache.set(email, captcha)
         return xtjson.json_result()
     else:
         return xtjson.json_server_error()
@@ -135,13 +138,13 @@ def mail_captcha():
 def all_cmsuser():
     users = CMSUser.query.all()
     context = {
-        'users':users
+        'users': users
     }
-    return flask.render_template('cms/cms_users.html',**context)
+    return flask.render_template('cms/cms_users.html', **context)
 
 
 # 添加CMS用户
-@bp.route('/all_cmsuser/add_cms_user/',methods=['GET','POST'])
+@bp.route('/all_cmsuser/add_cms_user/', methods=['GET', 'POST'])
 @login_required
 @superadmin_required
 def add_cms_user():
@@ -161,7 +164,7 @@ def add_cms_user():
             print roles
             if not roles:
                 return xtjson.json_params_error(message=u'必须最少指定一个分组!')
-            user = CMSUser(username=username,email=email,password=password)
+            user = CMSUser(username=username, email=email, password=password)
             for role_id in roles:
                 role = CMSRole.query.get(role_id)
                 role.users.append(user)
@@ -174,7 +177,7 @@ def add_cms_user():
 
 
 # 编辑CMS用户
-@bp.route('/all_cmsuser/edit_cms_user/',methods=['GET','POST'])
+@bp.route('/all_cmsuser/edit_cms_user/', methods=['GET', 'POST'])
 @login_required
 @superadmin_required
 def edit_cms_user():
@@ -184,11 +187,11 @@ def edit_cms_user():
             return flask.abort(404)
         user = CMSUser.query.get(user_id)
         roles = CMSRole.query.all()
-        current_roles = [role.id for role in user.roles ]
+        current_roles = [role.id for role in user.roles]
         context = {
-            'user' : user,
-            'roles' : roles,
-            'current_roles' : current_roles
+            'user': user,
+            'roles': roles,
+            'current_roles': current_roles
         }
         return flask.render_template('cms/cms_editcmsuser.html', **context)
     else:
@@ -208,7 +211,7 @@ def edit_cms_user():
 
 
 # 拉黑CMS用户
-@bp.route('/all_cmsuser/edit_cms_user/black_cms_user/',methods=['POST'])
+@bp.route('/all_cmsuser/edit_cms_user/black_cms_user/', methods=['POST'])
 @login_required
 @superadmin_required
 def black_cms_user():
@@ -226,7 +229,7 @@ def black_cms_user():
         return xtjson.json_params_error(message=form.get_error())
 
 
-#所有的前台用户
+# 所有的前台用户
 @bp.route('/all_frontuser/')
 @login_required
 def all_frontuser():
@@ -239,22 +242,24 @@ def all_frontuser():
     if not sort or sort == '1':
         frontusers = FrontUser.query.order_by(FrontUser.join_time.desc()).all()
     elif sort == '2':
-        frontusers = db.session.query(FrontUser).outerjoin(PostModel).group_by(FrontUser.id).order_by(db.func.count(PostModel.id).desc(), FrontUser.join_time.desc())
+        frontusers = db.session.query(FrontUser).outerjoin(PostModel).group_by(FrontUser.id).order_by(
+            db.func.count(PostModel.id).desc(), FrontUser.join_time.desc())
     elif sort == '3':
-        frontusers = db.session.query(FrontUser).outerjoin(CommentModel).group_by(FrontUser.id).order_by(db.func.count(CommentModel.id).desc(), FrontUser.join_time.desc())
+        frontusers = db.session.query(FrontUser).outerjoin(CommentModel).group_by(FrontUser.id).order_by(
+            db.func.count(CommentModel.id).desc(), FrontUser.join_time.desc())
     elif sort == '4':
         frontusers = FrontUser.query.order_by(FrontUser.points.desc()).all()
     else:
         frontusers = FrontUser.query.all()
 
     context = {
-        'frontusers' : frontusers,
-        'current_sort' :sort
+        'frontusers': frontusers,
+        'current_sort': sort
     }
-    return flask.render_template('cms/cms_frontusers.html',**context)
+    return flask.render_template('cms/cms_frontusers.html', **context)
 
 
-#编辑前台用户
+# 编辑前台用户
 @bp.route('/all_frontuser/edit_front_user/')
 @login_required
 def edit_front_user():
@@ -266,10 +271,10 @@ def edit_front_user():
     if not user:
         return flask.abort(404)
 
-    return flask.render_template('cms/cms_editfrontusers.html',current_user=user)
+    return flask.render_template('cms/cms_editfrontusers.html', current_user=user)
 
 
-#拉黑前台用户
+# 拉黑前台用户
 @bp.route('/all_frontuser/edit_front_user/black_front_user/', methods=['POST'])
 @login_required
 def black_front_user():
@@ -287,19 +292,19 @@ def black_front_user():
         return xtjson.json_params_error(message=form.get_error())
 
 
-#所有的板块
+# 所有的板块
 @bp.route('/boards/')
 @login_required
 def boards():
     all_board = BoardModel.query.all()
     context = {
-        'boards' : all_board
+        'boards': all_board
     }
-    return flask.render_template('cms/cms_boards.html',**context)
+    return flask.render_template('cms/cms_boards.html', **context)
 
 
-#添加板块
-@bp.route('/boards/add_board/',methods=['POST'])
+# 添加板块
+@bp.route('/boards/add_board/', methods=['POST'])
 @login_required
 def add_board():
     name = flask.request.form.get('name')
@@ -319,7 +324,7 @@ def add_board():
 
 
 # 编辑板块
-@bp.route('/boards/edit_board/',methods=['POST'])
+@bp.route('/boards/edit_board/', methods=['POST'])
 def edit_board():
     form = CMSEditBoardsForm(flask.request.form)
     if form.validate():
@@ -334,7 +339,7 @@ def edit_board():
 
 
 # 删除板块
-@bp.route('/boards/delete_board/',methods=['POST'])
+@bp.route('/boards/delete_board/', methods=['POST'])
 def delete_board():
     board_id = flask.request.form.get('board_id')
     if not board_id:
@@ -342,7 +347,7 @@ def delete_board():
     board = BoardModel.query.filter_by(id=board_id).first()
     if not board:
         return xtjson.json_params_error(message=u'没有该板块')
-    #判断板块下帖子是否大于0
+    # 判断板块下帖子是否大于0
     # if board.posts.count[0] > 0:
     #     return xtjson.json_params_error(message=u'该板块下有帖子，不能删除，请先删除帖子')
     db.session.delete(board)
@@ -350,17 +355,18 @@ def delete_board():
     return xtjson.json_result()
 
 
-#帖子列表
+# 帖子列表
 @bp.route('/posts/')
 @login_required
 def posts():
     sort_type = flask.request.args.get('sort', 1, type=int)
     board_id = flask.request.args.get('board', 0, type=int)
-    page = flask.request.args.get('page',1,type=int)
-    context = PostModelHelper.post_list(page,sort_type,board_id)
-    return flask.render_template('cms/cms_posts.html',**context)
+    page = flask.request.args.get('page', 1, type=int)
+    context = PostModelHelper.post_list(page, sort_type, board_id)
+    return flask.render_template('cms/cms_posts.html', **context)
 
-#加精帖子
+
+# 加精帖子
 @bp.route('/posts/highlight/', methods=['POST'])
 def highlight():
     form = CMSHighlightPostForm(flask.request.form)
@@ -396,12 +402,10 @@ def removed_post():
     return xtjson.json_result()
 
 
-
-
 @bp.context_processor
 def cms_user_context_processor():
-    if hasattr(flask.g,'cms_user'):
-        return {'cms_user' : flask.g.cms_user}
+    if hasattr(flask.g, 'cms_user'):
+        return {'cms_user': flask.g.cms_user}
     else:
         return {}
 
@@ -428,4 +432,3 @@ def cms_auth_forbidden(error):
         return xtjson.json_unauth_error()
     else:
         return flask.render_template('common/401.html'), 401
-

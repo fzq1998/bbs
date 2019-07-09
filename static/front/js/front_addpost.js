@@ -3,8 +3,8 @@
  */
 
 //发布帖子按钮执行的事件
-$(function() {
-    $('#btn-send-post').click(function(event) {
+$(function () {
+    $('#btn-send-post').click(function (event) {
         event.preventDefault();
 
         var titleInput = $('input[name=title]');
@@ -17,30 +17,26 @@ $(function() {
         //获取富文本编辑器内容
         var content = window.editor.$txt.html();
         //获取验证码的内容
-        var graph_capthcha = graphCaptchaInput.val();
+        var graph_captcha = graphCaptchaInput.val();
 
-        // console.log(title);
-        // console.log(board_id);
-        // console.log(content);
-        // console.log(graph_capthcha);
         xtajax.post({
             'url': '/add_post/',
             'data': {
                 'title': title,
                 'board_id': board_id,
                 'content': content,
-                'graph_captcha': graph_capthcha
+                'graph_captcha': graph_captcha
             },
-            'success': function(data) {
-                if (data['code'] == 200) {
+            'success': function (data) {
+                if (data['code'] === 200) {
                     xtalert.alertConfirm({
                         'msg': '恭喜！帖子发表成功',
                         'cancelText': '回到首页',
                         'confirmText': '再发一篇',
-                        'cancelCallback': function() {
+                        'cancelCallback': function () {
                             window.location = '/'
                         },
-                        'confirmCallback': function() {
+                        'confirmCallback': function () {
                             titleInput.val('');
                             window.editor.clear();
                             graphCaptchaInput.val('');

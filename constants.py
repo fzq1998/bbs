@@ -4,13 +4,12 @@
 CMS_SESSION_ID = 'cmsuserid'
 FRONT_SESSION_ID = 'frontuserid'
 
-
 # 阿里大于的  app key
 ALIDAYU_APP_KEY = ''
 # 阿里大于的  app secret
 ALIDAYU_APP_SECRET = ''
 # 阿里大于的模板签名名称
-ALIDAYU_SIGN_NAME =  ''
+ALIDAYU_SIGN_NAME = ''
 # 阿里大于的模版的ID
 ALIDAYU_TEMPLATE_CODE = ''
 
@@ -33,12 +32,3 @@ STAR_ALLOW_POINTS = 3
 COMMENT_ALLOW_POINTS = 5
 # 发布帖子必须要有的积分
 POST_ALLOW_POINTS = 10
-
-
-
-
-
-
-
-
-
